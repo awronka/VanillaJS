@@ -1,5 +1,4 @@
-.hover-rect {
-  fill: rgba(255, 0, 0, 0); }
-
-.hover-rect:hover {
-  fill: rgba(255, 0, 0, 0.5); }
+.bird {
+  width: 20px;
+  height: 20px;
+  background: blue; }

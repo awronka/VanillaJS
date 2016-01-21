@@ -1,71 +1,68 @@
 
-// var ajax = {};
-// ajax.x = function() {
-//     if (typeof XMLHttpRequest !== 'undefined') {
-//         return new XMLHttpRequest();  
-//     }
-//     var versions = [
-//         "MSXML2.XmlHttp.6.0",
-//         "MSXML2.XmlHttp.5.0",   
-//         "MSXML2.XmlHttp.4.0",  
-//         "MSXML2.XmlHttp.3.0",   
-//         "MSXML2.XmlHttp.2.0",  
-//         "Microsoft.XmlHttp"
-//     ];
+document.addEventListener('DOMContentLoaded', function(){
+console.log('loaded')
+var gameBody = document.createElement('div')
+gameBody.style.width ='600px';
+gameBody.style.height = '600px';
+gameBody.style.border = '1px dotted black'
+gameBody.style.left = "0"
+gameBody.style.right = '0'
+gameBody.style.margin = '20px auto'
+document.body.appendChild(gameBody)
 
-//     var xhr;
-//     for(var i = 0; i < versions.length; i++) {  
-//         try {  
-//             xhr = new ActiveXObject(versions[i]);  
-//             break;  
-//         } catch (e) {
-//         }  
-//     }
-//     return xhr;
-// };
+var bird = document.createElement('div')
+bird.classList.add('bird')
 
-// ajax.send = function(url, callback, method, data, sync) {
-//     var x = ajax.x();
-//     x.open(method, url, sync);
-//     x.onreadystatechange = function() {
-//         if (x.readyState == 4) {
-//             callback(x.responseText)
-//         }
-//     };
-//     if (method == 'POST') {
-//         x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-//     }
-//     x.send(data)
-// };
-
-// ajax.get = function(url, data, callback, sync) {
-//     var query = [];
-//     for (var key in data) {
-//         query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
-//     }
-//     ajax.send(url + (query.length ? '?' + query.join('&') : ''), callback, 'GET', null, sync)
-// };
+gameBody.appendChild(bird)
+console.log(bird.style)
+bird.style.marginTop = '200px';
+bird.style.marginLeft = '250px';
 
 
+// setInterval(function(){
+// 	console.log('hit')
+// 	bird.style.marginTop = (parseInt(bird.style.marginTop, 10) - 1)+'px'
+// },20)
 
-// function getData(){
-//    var artist = document.getElementById('artist').value;
-    
-//     ajax.get('/albums/'+ artist, {}, function(data) {
-//         data = JSON.parse(data)
-//         addDomElements(document.getElementById("album-list"),data)
-//     });
-// }
+document.body.addEventListener('keypress', function(e){
+		if(e.which ===32){
+			clearInterval(jumpInterval)
+			var initPos = bird.style.marginTop.split('p')
+			var jumpTarget = (Number(initPos[0]) - 1)-100
+			var velocity = 1;
+			var jumpStart = true;
+			var jumpOrigin = Number(initPos[0])
+			var jumpInterval = setInterval(function(){
+				var position = bird.style.marginTop.split('p')
+				if(jumpStart){
+					if(jumpTarget <=(Number(position[0], 10))-50){
+					bird.style.marginTop = (Number(position[0]) - 2)+'px'
+					}
+					else if(jumpTarget <=(Number(position[0]))-25){
+					bird.style.marginTop = (Number(position[0]) - 1)+'px'
+					}
+					else if(jumpTarget <(Number(position[0]))){
+					bird.style.marginTop = (Number(position[0]) - .5)+'px'
+					}
+					else if(jumpTarget === (Number(position[0]))){jumpStart = false
+						bird.style.marginTop = (Number(position[0]))+'px'
+					}
+				}
+				else if(!jumpStart){
+					if(jumpOrigin >=(Number(position[0]))){
+					bird.style.marginTop = (Number(position[0]) + .5)+'px'
+					}
+					else if(jumpOrigin >=(Number(position[0]))+10){
+					bird.style.marginTop = (Number(position[0]) + 1)+'px'
+					}
+					else{
+					velocity++;
+					bird.style.marginTop = (Number(position[0]) + 2)+'px'
+					}
+				}	
+			}, 0)
+		}
+})
 
 
-// function addDomElements(node,data){
-//         while (node.firstChild) {
-//                 node.removeChild(node.firstChild);
-//             }
-            
-//         for(var i =0; i<data.results.length;i++){
-//             var variable = document.createElement('div')
-//                 variable.innerHTML = data.results[i].collectionName;
-//                 node.appendChild(variable)
-//         }
-// }
+})

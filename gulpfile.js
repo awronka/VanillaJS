@@ -14,6 +14,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var eslint = require('gulp-eslint');
 var mocha = require('gulp-mocha');
 var karma = require('karma').server;
+var istanbul = require('gulp-istanbul');
 var notify = require('gulp-notify');
 
 
@@ -64,6 +65,42 @@ gulp.task('buildCSS', function () {
         .pipe(sassCompilation)
         .pipe(rename('main.css'))
         .pipe(gulp.dest('./browser'));
+});
+
+
+// Test Environment
+// --------------------------------------------------------------
+
+
+gulp.task('testServerJS', function () {
+    require('babel-core/register');
+    return gulp.src('./test/server/*.js', {
+        read: false
+    }).pipe(mocha({ reporter: 'spec' }));
+});
+
+gulp.task('testServerJSWithCoverage', function (done) {
+    gulp.src('./server/*.js')
+        .pipe(istanbul({
+            includeUntested: true
+        }))
+        .pipe(istanbul.hookRequire())
+        .on('finish', function () {
+            gulp.src('./tests/server/**/*.js', {read: false})
+                .pipe(mocha({reporter: 'spec'}))
+                .pipe(istanbul.writeReports({
+                    dir: './coverage/server/',
+                    reporters: ['html', 'text']
+                }))
+                .on('end', done);
+        });
+});
+
+gulp.task('testBrowserJS', function (done) {
+    karma.start({
+        configFile: __dirname + '/tests/browser/karma.conf.js',
+        singleRun: true
+    }, done);
 });
 
 // Production tasks
@@ -117,6 +154,14 @@ gulp.task('default', function () {
 
     // Reload when a template (.html) file changes.
     gulp.watch(['public/**/*.html', 'server/*.html'], ['reload']);
+
+
+        // Run server tests when a server file or server test file changes.
+    gulp.watch(['tests/server/**/*.js'], ['testServerJS']);
+
+    // Run browser testing when a browser test file changes.
+    gulp.watch('tests/browser/**/*', ['testBrowserJS']);
+
 
     livereload.listen();
 

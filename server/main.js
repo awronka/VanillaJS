@@ -40,20 +40,4 @@ function get(artist, callback) {
 }
 
 
-// var express = require('express')
-// var app = express();
-// var path = require('path')
 
-
-// app.get('/', function(req,res,next){
-//   res.sendFile(path.join(_dirname+'/index.html'))
-// })
-
-
-// app.use(express.static('node_modules'))
-
-// var port  = 8888;
-
-// var server = app.listen(port, function(){
-//   console.log('we are listening at port' + port)
-// })
