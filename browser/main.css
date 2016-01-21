@@ -1,4 +1,65 @@
-.bird {
-  width: 20px;
-  height: 20px;
-  background: blue; }
+.navbar-color-fix {
+  background-color: rgba(150, 150, 255, 0.3);
+  border-bottom: 2px solid rgba(0, 0, 230, 0.5);
+  padding: none; }
+
+.tabBar {
+  width: 40%;
+  height: 50px;
+  float: right; }
+
+.tabBox {
+  height: 100%;
+  width: 25%;
+  float: right;
+  border-right: 2px dotted rgba(0, 0, 0, 0.3);
+  border-left: 2px dotted rgba(0, 0, 0, 0.3);
+  margin: 0px 2px 15px 2px;
+  position: relative; }
+  .tabBox .miniTab {
+    align-content: center;
+    margin: 10px auto;
+    text-align: center; }
+  .tabBox span {
+    color: darkgrey;
+    font-size: 18px;
+    text-align: center;
+    font-family: Helvetica; }
+
+.first-appear-tab {
+  height: 25px;
+  width: 100%;
+  float: right;
+  border-right: 2px dotted rgba(0, 0, 0, 0.3);
+  border-left: 2px dotted rgba(0, 0, 0, 0.3);
+  margin: 0px 0px 5px 0px;
+  position: relative;
+  background-color: lightblue; }
+  .first-appear-tab .miniTab {
+    align-content: center;
+    margin: 0px auto;
+    text-align: center; }
+  .first-appear-tab span {
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    font-family: Helvetica; }
+
+.appearTab {
+  height: 25px;
+  width: 100%;
+  float: right;
+  border-right: 2px dotted rgba(0, 0, 0, 0.3);
+  border-left: 2px dotted rgba(0, 0, 0, 0.3);
+  margin: 0px 0px 5px 0px;
+  position: absolute;
+  background-color: lightblue; }
+  .appearTab .miniTab {
+    align-content: center;
+    margin: 0px auto;
+    text-align: center; }
+  .appearTab span {
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    font-family: Helvetica; }
